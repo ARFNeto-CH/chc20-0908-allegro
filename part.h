@@ -42,11 +42,11 @@ typedef struct
     uint16_t        n_Part;
     unsigned        semente;
     double          time_out;
-    const char* titulo;
+    const char*     titulo;
 
     ALLEGRO_COLOR           fundo;
-    ALLEGRO_DISPLAY* display;
-    ALLEGRO_EVENT_QUEUE* eventos;
+    ALLEGRO_DISPLAY*        display;
+    ALLEGRO_EVENT_QUEUE*    eventos;
     ALLEGRO_KEYBOARD_STATE  teclado;
     ALLEGRO_TIMEOUT         timeout;
 
@@ -54,16 +54,16 @@ typedef struct
 
 void        atualiza_tela(Tela*, Config*);
 int         colide_com_nuvem(const int, const Nuvem*);
-Particula* gera_particula(Config*);
+Particula*  gera_particula(Config*);
 int         impacto(
     const uint16_t a,
     const uint16_t b,
     const Nuvem* N,
     const Config*);
-Tela* inicia_tela(Config*);
+Tela*       inicia_tela(Config*);
 void        mostra_nuvem(Nuvem*);
 ALLEGRO_COLOR   nova_cor(const Config*);
 int         power_on(Config*);
-Nuvem* primeira_nuvem(Config*);
-Tela* proxima_nuvem(const Tela*, const Config*);
+Nuvem*      primeira_nuvem(Config*);
+Tela*       proxima_nuvem(const Tela*, const Config*);
 float       vfinal(int, int, float, float);

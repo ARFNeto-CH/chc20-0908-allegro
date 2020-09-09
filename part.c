@@ -3,17 +3,7 @@
 int main(int argc, char** argv)
 {
     ALLEGRO_EVENT   ev;
-    // basico para o teste
-    Config cfg = {
-        .n_Part = 4,
-        .altura = 540,
-        .largura = 960,
-        .min_velocidade = .25, // abaixo disso considera parado
-        .fundo = { 127.F, 127.F, 127.F, 0 }, // cinza
-        .semente = 20090818,
-        .time_out = 0.1, // em segundos
-        .titulo = "Um teste"
-    };
+    Config cfg;
     power_on(&cfg); // inicia tudo
     Tela* tela = inicia_tela(&cfg);
     atualiza_tela(tela, &cfg);
@@ -208,7 +198,19 @@ ALLEGRO_COLOR   nova_cor(const Config* cfg)
 };  // nova_cor()
 
 int         power_on(Config* cfg)
-{
+{    // basico para o teste
+    Config padrao = {
+        .n_Part = 40,
+        .altura = 900,
+        .largura = 1600,
+        .min_velocidade = .05, // abaixo disso considera parado
+        .fundo = { 127.F, 127.F, 127.F, 0 }, // cinza
+        .semente = 2009090901,
+        .time_out = 0.1, // em segundos
+        .titulo = "Um teste"
+    };
+    *cfg = padrao;
+
     srand(cfg->semente);
     al_init(); // Allegro
     al_install_keyboard();
@@ -289,16 +291,13 @@ Nuvem* primeira_nuvem(Config* cfg)
 };  // primeira_nuvem()
 
 Tela* proxima_nuvem(const Tela* prev, const Config* cfg)
-{
-    char n_colisoes = 0;
+{   char n_colisoes = 0;
     do
     {   // move uma particula pA
         for (int a = 0; a < prev->nuvem->nPart; a += 1)
         {
             Particula* pA = prev->nuvem->p[a];
-            // parada?
             if ((pA->vx == 0) && (pA->vy == 0)) continue;
-            // em movimento
             for (int b = a + 1; b < prev->nuvem->nPart; b += 1)
             {
                 Particula* pB = prev->nuvem->p[b]; // a outra
@@ -314,9 +313,7 @@ Tela* proxima_nuvem(const Tela* prev, const Config* cfg)
                 (pA->y <= pA->raio)) pA->vy *= -1;
             if (n_colisoes > 0) break;
         };  // for()
-
     } while (n_colisoes != 0);
-
     return (Tela*)prev; // retorna a nova Tela
 };  // proxima_nuvem()
 
